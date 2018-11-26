@@ -1,6 +1,7 @@
 package com.suchaos.mapper;
 
 import com.suchaos.model.User;
+import com.suchaos.param.UserParam;
 
 import java.util.List;
 
@@ -13,9 +14,9 @@ import java.util.List;
 public interface UserMapper {
     List<User> getAll();
 
-    //List<User> getList(UserParam userParam);
+    List<User> getList(UserParam userParam);
 
-    //int getCount(UserParam userParam);
+    int getCount(UserParam userParam);
 
     User getOne(Long id);
 

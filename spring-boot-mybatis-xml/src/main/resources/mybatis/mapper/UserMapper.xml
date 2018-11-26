@@ -34,6 +34,24 @@
         WHERE id = #{id}
     </select>
 
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.suchaos.param.UserParam">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM users
+        where 1=1
+        <include refid="Base_Where_List"/>
+        order by id desc
+        limit #{beginLine}, #{pageSize}
+    </select>
+
+    <select id="getCount" resultType="Integer" parameterType="com.suchaos.param.UserParam">
+        select
+        count(1)
+        from users
+        where 1=1
+        <include refid="Base_Where_List" />
+    </select>
+
     <insert id="insert" parameterType="com.suchaos.model.User">
        INSERT INTO
        		users
