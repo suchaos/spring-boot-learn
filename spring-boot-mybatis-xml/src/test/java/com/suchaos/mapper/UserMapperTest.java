@@ -43,7 +43,7 @@ public class UserMapperTest {
     @Test
     public void testPage() {
         UserParam userParam = new UserParam();
-		userParam.setUserSex("WOMAN");
+//		userParam.setUserSex("WOMAN");
         userParam.setCurrentPage(0);//0 是第一页，1 是第二页 依次类推
         List<User> users = userMapper.getList(userParam);
         long count = userMapper.getCount(userParam);
