@@ -1,7 +1,5 @@
 package com.suchaos;
 
-import java.net.InetAddress;
-
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
@@ -11,6 +9,8 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
+
+import java.net.InetAddress;
 
 /**
  * 员工增删改查的应用程序
