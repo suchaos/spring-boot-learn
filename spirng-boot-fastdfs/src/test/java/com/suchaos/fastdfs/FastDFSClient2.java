@@ -180,12 +180,13 @@ public class FastDFSClient2 {
     @Test
     public void testUpload() {
         try {
-            String masterFileId = uploadFile("D:/testpic/20180822151840.jpg");
-            System.out.println("主文件:" + masterFileId);
-            download(masterFileId, "D:/testpic/master.jpg");
-            String slaveFileId = uploadSlaveFile(masterFileId, "_120x120", "D:/testpic/20180822151840.jpg");
+            /*String masterFileId = uploadFile("D:/testpic/20180822151840.jpg");
+            System.out.println("主文件:" + masterFileId);*/
+            String masterFileId = "group1/M00/00/00/wKgf0Fv_h9mAOW8iABvB-go06G4527.jpg";
+            download(masterFileId, "D:/testpic/master1.jpg");
+            /*String slaveFileId = uploadSlaveFile(masterFileId, "_120x120", "D:/testpic/20180822151840.jpg");
             System.out.println("从文件:" + slaveFileId);
-            download(slaveFileId, "D:/testpic/slave.jpg");
+            download(slaveFileId, "D:/testpic/slave.jpg");*/
         } catch (Exception e) {
             log.error("upload file to FastDFS failed.", e);
         }
