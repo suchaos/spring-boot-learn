@@ -12,7 +12,9 @@ import java.util.List;
  * @date 2018/11/23
  */
 public interface UserRepository {
-    int save(User user, JdbcTemplate jdbcTemplate);
+    int save1(User user, JdbcTemplate primaryJdbcTemplate);
+
+    int save2(User user, JdbcTemplate secondaryJdbcTemplate);
 
     int update(User user, JdbcTemplate jdbcTemplate);
 

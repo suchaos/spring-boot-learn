@@ -19,7 +19,7 @@ public class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Autowired
-    @Qualifier("primaryJabcTemplate")
+    @Qualifier("primaryJdbcTemplate")
     private JdbcTemplate primaryJdbcTemplate;
 
     @Autowired
@@ -29,9 +29,19 @@ public class UserRepositoryTest {
     @Test
     public void save() {
         User user = new User("smile", "123456", 30);
-        userRepository.save(user, primaryJdbcTemplate);
-        userRepository.save(user, secondaryJdbcTemplate);
-        userRepository.save(user, null);
+        userRepository.save1(user, primaryJdbcTemplate);
+    }
+
+    @Test
+    public void save2() {
+        User user = new User("smile", "123456", 30);
+        userRepository.save2(user, secondaryJdbcTemplate);
+    }
+
+    @Test
+    public void save3() {
+        User user = new User("smile", "123456", 30);
+        userRepository.save2(user, null);
     }
 
     @Test

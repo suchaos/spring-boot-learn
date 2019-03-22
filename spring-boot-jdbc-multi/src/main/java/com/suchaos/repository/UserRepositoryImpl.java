@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,19 +20,38 @@ import java.util.List;
  * @date 2018/11/23
  */
 @Repository
+@Transactional(value = "primaryTxManager")
 public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
-    @Qualifier("primaryJabcTemplate")
+    @Qualifier("primaryJdbcTemplate")
     private JdbcTemplate primaryJdbcTemplate;
 
+    @Autowired
+    @Qualifier("secondaryJdbcTemplate")
+    private JdbcTemplate secondaryJdbcTemplate;
+
     @Override
-    public int save(User user, JdbcTemplate jdbcTemplate) {
+    public int save1(User user, JdbcTemplate jdbcTemplate) {
         if (jdbcTemplate == null) {
             jdbcTemplate = primaryJdbcTemplate;
         }
         String saveSql = "INSERT INTO users(name, password, age) values(?, ?, ?)";
-        return jdbcTemplate.update(saveSql, user.getName(), user.getPassword(), user.getAge());
+        int result = jdbcTemplate.update(saveSql, user.getName(), user.getPassword(), user.getAge());
+        System.out.println(1 / 0);
+        return result;
+    }
+
+    @Override
+    @Transactional(value = "secondaryTxManager")
+    public int save2(User user, JdbcTemplate jdbcTemplate) {
+        if (jdbcTemplate == null) {
+            jdbcTemplate = secondaryJdbcTemplate;
+        }
+        String saveSql = "INSERT INTO users(name, password, age) values(?, ?, ?)";
+        int result = jdbcTemplate.update(saveSql, user.getName(), user.getPassword(), user.getAge());
+        System.out.println(1 / 0);
+        return result;
     }
 
     @Override
@@ -53,6 +73,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> findALL(JdbcTemplate jdbcTemplate) {
         if (jdbcTemplate == null) {
             jdbcTemplate = primaryJdbcTemplate;
@@ -62,6 +83,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User findById(long id, JdbcTemplate jdbcTemplate) {
         if (jdbcTemplate == null) {
             jdbcTemplate = primaryJdbcTemplate;
