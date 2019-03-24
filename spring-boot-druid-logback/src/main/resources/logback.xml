@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <!-- 控制台日志 info 输出 -->
+    <appender name="ConsoleInfo" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>info</level>
+        </filter>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>[%d{HH:mm:ss.SSS}] %-5level %class{36} %L %M - %msg%xEx%n</Pattern>
+        </encoder>
+    </appender>
+
+    <!-- 控制台日志 debug 输出 -->
+    <appender name="ConsoleDebug" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>[%d{HH:mm:ss.SSS}] %-5level %class{36} %L %M - %msg%xEx%n</Pattern>
+        </encoder>
+    </appender>
+
+    <!--处理DEBUG级别的日志，并把该日志放到logs/debug.log文件中-->
+    <appender name="RollingFileDebug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>./logs/debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>logs/debug-%d{yyyy-MM-dd}-%i.log</FileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] %-5level %class{36} %L %M - %msg%xEx%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--处理INFO级别的日志，并把该日志放到logs/info.log文件中-->
+    <appender name="RollingFileInfo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>./logs/info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>logs/info-%d{yyyy-MM-dd}-%i.log</FileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] %-5level %class{36} %L %M - %msg%xEx%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--处理WARN级别的日志，并把该日志放到logs/warn.log文件中-->
+    <appender name="RollingFileWarn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>./logs/warn.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>logs/warn-%d{yyyy-MM-dd}-%i.log</FileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] %-5level %class{36} %L %M - %msg%xEx%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--处理error级别的日志，并把该日志放到logs/error.log文件中-->
+    <appender name="RollingFileError" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>./logs/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>logs/error-%d{yyyy-MM-dd}-%i.log</FileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] %-5level %class{36} %L %M - %msg%xEx%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--druid的日志记录追加器-->
+    <appender name="druidSqlRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <file>./logs/druid-sql.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>logs/api-%d{yyyy-MM-dd}-%i.log</FileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] %-5level %class{36} %L %M - %msg%xEx%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <root level="debug" additivity="false">
+        <appender-ref ref="ConsoleInfo"/>
+        <appender-ref ref="RollingFileInfo"/>
+        <appender-ref ref="RollingFileWarn"/>
+        <appender-ref ref="RollingFileError"/>
+        <appender-ref ref="RollingFileDebug"/>
+    </root>
+
+    <!--记录druid-sql的记录-->
+    <logger name="druid.sql.Statement" level="debug" additivity="false">
+        <appender-ref ref="ConsoleDebug"/>
+        <appender-ref ref="druidSqlRollingFile"/>
+    </logger>
+
+    <!--过滤日志-->
+    <Logger name="org.apache.catalina.startup.DigesterFactory" level="error" />
+    <Logger name="org.apache.catalina.util.LifecycleBase" level="error" />
+    <Logger name="org.apache.coyote.http11.Http11NioProtocol" level="warn" />
+    <logger name="org.apache.sshd.common.util.SecurityUtils" level="warn"/>
+    <Logger name="org.apache.tomcat.util.net.NioSelectorPool" level="warn" />
+    <Logger name="org.crsh.plugin" level="warn" />
+    <logger name="org.crsh.ssh" level="warn"/>
+    <Logger name="org.eclipse.jetty.util.component.AbstractLifeCycle" level="error" />
+    <Logger name="org.hibernate.validator.internal.util.Version" level="warn" />
+    <logger name="org.springframework.boot.actuate.autoconfigure.CrshAutoConfiguration" level="warn"/>
+    <logger name="org.springframework.boot.actuate.endpoint.jmx" level="warn"/>
+    <logger name="org.thymeleaf" level="warn"/>
+</configuration>
