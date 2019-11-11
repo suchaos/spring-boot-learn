@@ -40,11 +40,12 @@ public class EmployeeService {
     @CacheEvict
     public String deleteEmployeeById(Integer id) {
         log.info("updateEmployee 删除数据");
-        int num = employeeMapper.deleteByPrimaryKey(id);
-        if (num > 0) {
-            return "success";
-        } else {
-            return "fail";
-        }
+//        int num = employeeMapper.deleteByPrimaryKey(id);
+//        if (num > 0) {
+//            return "success";
+//        } else {
+//            return "fail";
+//        }
+        return "success";
     }
 }
